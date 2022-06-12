@@ -58,7 +58,7 @@ int main(int argc, char* argv[]) {
 To compile and execute this code, do the following:
 
 ```bash
-g++ -o build_cdbg.out ./util/build_cdbg.cpp -I {your_install_path}/include -L {your_install_path}/lib -lhash_cdbg -lsdsl -ldivsufsort -ldivsufsort64 -lpthread -lz -O3
+g++ -o build_cdbg.out ./util/build_cdbg.cpp -I {your_install_path}/include -L {your_install_path}/lib -lhash_cdbg -lsdsl -ldivsufsort -ldivsufsort64 -lpthread -lz -std=c++17 -O3
 ./build_cdbg.out
 ```
 
@@ -66,10 +66,10 @@ The resulting ```example.cdbg``` is the index file.
 To rebuild the original sequences from this index, do the following using ```build_fm_index.cpp``` and ```rebuild_seqs.cpp```:
 
 ```bash
-g++ -o build_fm_index.out ./util/build_fm_index.cpp -I ~/include -L ~/lib -lhash_cdbg -lsdsl -ldivsufsort -ldivsufsort64 -lpthread -lz
-./build_fm_index.out example.fastq example
-g++ -o rebuild_seqs.out ./util/rebuild_seqs.cpp -I ~/include -L ~/lib -lhash_cdbg -lsdsl -ldivsufsort -ldivsufsort64 -lpthread -lz -std=c++17 -O3
-./rebuild_seqs.out example.boss example.fm_index 1 example.re
+g++ -o build_fm_index.out ./util/build_fm_index.cpp -I {your_install_path}/include -L {your_install_path}/lib -lhash_cdbg -lsdsl -ldivsufsort -ldivsufsort64 -lpthread -lz
+./build_fm_index.out data/example.fastq example
+g++ -o rebuild_seqs.out ./util/rebuild_seqs.cpp -I {your_install_path}/include -L {your_install_path}/lib -lhash_cdbg -lsdsl -ldivsufsort -ldivsufsort64 -lpthread -lz -std=c++17 -O3
+./rebuild_seqs.out example.cdbg example.fm_index 1 example.re
 ```
 
 The resulting ```example.re.fasta``` is a fasta file that contains the ```example.fastq``` sequences and it's reverse complements rebuilt.

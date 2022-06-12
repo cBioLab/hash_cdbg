@@ -1,11 +1,11 @@
 extern "C"{
-#include "boss/kseq.h"
+#include "hash_cdbg/kseq.h"
 #include <zlib.h>
 };
 
 #include <sdsl/sd_vector.hpp>
 #include <sdsl/suffix_arrays.hpp>
-#include "boss/dna_alphabet.hpp"
+#include "hash_cdbg/dna_alphabet.hpp"
 
 
 KSEQ_INIT(gzFile, gzread)
