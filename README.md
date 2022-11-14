@@ -7,6 +7,9 @@ This tool requires:
 - [CMake](https://cmake.org/) 3.15 or higher
 - [SDSL-lite](https://github.com/simongog/sdsl-lite) library
 
+## Support
+- Ubuntu 18.04
+
 ## Installation
 
 First, download the library and move to library's root directory.
