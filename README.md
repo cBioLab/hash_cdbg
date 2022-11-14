@@ -78,4 +78,4 @@ g++ -o rebuild_seqs.out ./util/rebuild_seqs.cpp -I {your_install_path}/include -
 The resulting ```example.re.fasta``` is a fasta file that contains the ```example.fastq``` sequences and it's reverse complements rebuilt.
 
 ## Reproduction of Our Experiments
-
+If you want to reproduce our experiments, see [experiments README](experiments/README.md).
