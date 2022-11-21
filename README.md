@@ -40,7 +40,7 @@ make & make install
 
 ## Getting Started
 To use this library quickly, look in the util directory.
-```build_cdbg.cpp``` is a code that builds an index, the detail of which is as follow:
+[build_cdbg.cpp](./util/build_cdbg.cpp) is a code that builds an index, the detail of which is as follow:
 
 ```cpp
 #include <iostream>
@@ -61,12 +61,13 @@ int main(int argc, char* argv[]) {
 To compile and execute this code, do the following:
 
 ```bash
+cd hash_cdbg
 g++ -o build_cdbg.out ./util/build_cdbg.cpp -I {your_install_path}/include -L {your_install_path}/lib -lhash_cdbg -lsdsl -ldivsufsort -ldivsufsort64 -lpthread -lz -std=c++17 -O3
 ./build_cdbg.out
 ```
 
 The resulting ```example.cdbg``` is the index file.
-To rebuild the original sequences from this index, do the following using ```build_fm_index.cpp``` and ```rebuild_seqs.cpp```:
+To rebuild the original sequences from this index, do the following using [build_fm_index.cpp](./util/build_fm_index.cpp) and [rebuild_seqs.cpp](./util/rebuild_seqs.cpp):
 
 ```bash
 g++ -o build_fm_index.out ./util/build_fm_index.cpp -I {your_install_path}/include -L {your_install_path}/lib -lhash_cdbg -lsdsl -ldivsufsort -ldivsufsort64 -lpthread -lz
@@ -78,4 +79,4 @@ g++ -o rebuild_seqs.out ./util/rebuild_seqs.cpp -I {your_install_path}/include -
 The resulting ```example.re.fasta``` is a fasta file that contains the ```example.fastq``` sequences and it's reverse complements rebuilt.
 
 ## Reproduction of Our Experiments
-If you want to reproduce our experiments, see [experiments README](experiments/README.md).
+If you want to reproduce our experiments, see [experiments README](./experiments).
