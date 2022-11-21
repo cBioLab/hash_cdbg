@@ -24,7 +24,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE ${LIBSDSL_LIBRARIES} z pthread)
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 target_compile_options(${PROJECT_NAME}
   PUBLIC
-    -Werror -Wall -Wpedantic -Wextra -msse4.2 -O3 -funroll-loops -fomit-frame-pointer -ffast-math
+    -Wall -Wpedantic -Wextra -msse4.2 -O3 -funroll-loops -fomit-frame-pointer -ffast-math
     $<$<CONFIG:Debug>:-g>
 )
 target_compile_definitions(${PROJECT_NAME}
