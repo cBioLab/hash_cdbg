@@ -46,7 +46,7 @@ The code to build a suffix tree is [make_hash_cdbg.cpp](./make_hash_cdbg.cpp) in
 Compile this code, and run it with specified file.
 
 ```bash
-g++ -o make_hash_cdbg.out make_hash_cdbg.cpp -I {your_hash_cdbg_install_path}/include -L {your_hash_cdbg_install_path}/lib -lcol_boss -lsdsl -ldivsufsort -ldivsufsort64 -lpthread -lz -O3
+g++ -o make_hash_cdbg.out make_hash_cdbg.cpp -I {your_hash_cdbg_install_path}/include -L {your_hash_cdbg_install_path}/lib -lhash_dbg -lsdsl -ldivsufsort -ldivsufsort64 -lpthread -lz -std=c++17 -O3
 /usr/bin/time -f "Memory:%MKB,time:%E" ./make_hash_cdbg.out ./chr21_40x_err.fastq chr21_hash_cdbg_err.cdbg
 /usr/bin/time -f "Memory:%MKB,time:%E" ./make_hash_cdbg.out ./chr21_40x_noerr.fastq chr21_hash_cdbg_noerr.cdbg
 ```
@@ -105,14 +105,23 @@ g++ -o rebuild_st.out rebuild_st.cpp -I {your_sdsl_install_path}/include -L {you
 
 If running code finishes, an index file is generated and the rebuilding time and peak memory are output to the console, respectively
 
+#### Build FM index
+Build an FM-index to more accurately count the reads rebuilt by the previous and our methods; the FM-index is not necessarily needed if you just want to do rebuilding.
+
+```bash
+g++ -o build_fm_index.out build_fm_index.cpp -I {your_colored_bos_install_path}/include -L {your_colored_bos_install_path}/lib -lcol_boss -lsdsl -ldivsufsort -ldivsufsort64 -lpthread -lz
+./build_fm_index.out chr21_40x_err.fastq chr21_40x_err
+./build_fm_index.out chr21_40x_noerr.fastq chr21_40x_noerr
+```
+
 #### Previous method
 The code to rebuilding original reads from index of previous method is [rebuild_prev.cpp](./rebuild_prev.cpp) in this folder.
 Compile this code, and run it with specified file.
 
 ```bash
-g++ -o rebuild_prev.out rebuild_prev.cpp -I {your_colored_bos_install_path}/include -L {your_colored_bos_install_path}/lib -lsdsl -ldivsufsort -ldivsufsort64 -std=c++17 -O3 -DNDEBUG
-/usr/bin/time -f "Memory:%MKB,time:%E" ./rebuild_prev.out ./chr21_prev_err.cst chr21_prev_err.re
-/usr/bin/time -f "Memory:%MKB,time:%E" ./rebuild_prev.out ./chr21_prev_noerr.cst chr21_prev_noerr.re
+g++ -o rebuild_prev.out rebuild_prev.cpp -I {your_colored_bos_install_path}/include -L {your_colored_bos_install_path}/lib -lcol_boss -lsdsl -ldivsufsort -ldivsufsort64 -lpthread -lz -O3
+/usr/bin/time -f "Memory:%MKB,time:%E" ./rebuild_prev.out ./chr21_prev_err.boss ./chr21_40x_err.fm_index 16 chr21_prev_err.re
+/usr/bin/time -f "Memory:%MKB,time:%E" ./rebuild_prev.out ./chr21_prev_noerr.boss ./chr21_40x_noerr.fm_index 16 chr21_prev_noerr.re
 ```
 
 If running code finishes, an index file is generated and the rebuilding time and peak memory are output to the console, respectively
@@ -123,9 +132,9 @@ The code to rebuilding original reads from index of previous method is [rebuild_
 Compile rebuild_prev.cpp, and run it with specified file.
 
 ```bash
-g++ -o rebuild_hash_cdbg.out rebuild_hash_cdbg.cpp -I {your_hash_cdbg_install_path}/include -L {your_hash_cdbg_install_path}/lib -lsdsl -ldivsufsort -ldivsufsort64 -std=c++17 -O3 -DNDEBUG
-/usr/bin/time -f "Memory:%MKB,time:%E" ./rebuild_hash_cdbg.out ./chr21_hash_cdbg_err.cst chr21_hash_cdbg_err.re
-/usr/bin/time -f "Memory:%MKB,time:%E" ./rebuild_hash_cdbg.out ./chr21_hash_cdbg_noerr.cst chr21_hash_cdbg_noerr.re
+g++ -o rebuild_hash_cdbg.out rebuild_hash_cdbg.cpp -I {your_hash_cdbg_install_path}/include -L {your_hash_cdbg_install_path}/lib -lhash_dbg -lsdsl -ldivsufsort -ldivsufsort64 -lpthread -lz -std=c++17 -O3
+/usr/bin/time -f "Memory:%MKB,time:%E" ./rebuild_hash_cdbg.out ./chr21_hash_cdbg_err.cdbg ./chr21_40x_err.fm_index 16 chr21_hash_cdbg_err.re
+/usr/bin/time -f "Memory:%MKB,time:%E" ./rebuild_hash_cdbg.out ./chr21_hash_cdbg_noerr.cdbg ./chr21_40x_noerr.fm_index 16 chr21_hash_cdbg_noerr.re
 ```
 
 If running code finishes, an index file is generated and the rebuilding time and peak memory are output to the console, respectively
