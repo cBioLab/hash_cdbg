@@ -80,3 +80,12 @@ The resulting ```example.re.fasta``` is a fasta file that contains the ```exampl
 
 ## Reproduction of Our Experiments
 If you want to reproduce our experiments, see [experiments README](./experiments).
+
+## Try with Your Data
+This tool does **not** support reads containing N bases.
+Run [remove_n_read.cpp](./util/remove_n_read.cpp) to remove reads containing N bases as a preprocessing step.
+
+```bash
+g++ -o remove_n_read.out ./util/remove_n_read.cpp -lpthread -std=c++17 -O3
+./remove_n_read.out {your_fastq_file} {output_fastq_file}
+```
